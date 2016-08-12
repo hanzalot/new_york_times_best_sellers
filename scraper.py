@@ -35,7 +35,9 @@ class NYTBSSpider(scrapy.Spider):
         headers = response.xpath("//*[@id='subnavigation']/form/div")
         print len(headers)
         for header in headers:
-            links = header.xpath("//*/option")
+            links = header.xpath("//select/option")
+            ident = header.xpath("//@id").extract()
+            print ident
             for link in links:
                 value = link.xpath("//@value").extract()
                 if value:
