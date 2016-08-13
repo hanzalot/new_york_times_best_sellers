@@ -36,10 +36,10 @@ class NYTBSSpider(scrapy.Spider):
         print len(headers)
         for header in headers:
             links = header.xpath(".//select/option")
-            ident = header.xpath(".//@id").extract()
+            ident = header.xpath(".//@id").extract()[0]
             print ident
             for link in links:
-                value = link.xpath(".//@value").extract()
+                value = link.xpath(".//@value").extract()[0]
                 if value:
                     print value
         
