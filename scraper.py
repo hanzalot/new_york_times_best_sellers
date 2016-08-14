@@ -75,11 +75,7 @@ class NYTBSSpider(scrapy.Spider):
             else:
                 isbn1 = ''
             output = ",".join([label,str(number),str(isbn1),title,author,publisher,description])
-            if isinstance(output,basestring):
-                output.encode('utf8')
-            else:
-                unicode(output).encode('utf8')
-            print output
+            print output.encode('ascii','ignore')
             number+=1
         
         
