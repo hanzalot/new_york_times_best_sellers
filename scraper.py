@@ -58,7 +58,7 @@ class NYTBSSpider(scrapy.Spider):
             publisher = response.xpath(".//p[contains(@class,'publisher')]/text()").extract()
             description = response.xpath(".//p[contains(@class,'description')]/text()").extract()
             isbn = response.xpath(".//meta/@content").extract()
-            print "{},{},{},{},{},{},{},{}".format([label,number,title[0],author[0],publisher[0],description[0],isbn[1],isbn[0]])
+            print "{},{},{},{},{},{},{},{}".format(*[label,number,title[0],author[0],publisher[0],description[0],isbn[1],isbn[0]])
             number+=1
         
         
