@@ -54,12 +54,16 @@ class NYTBSSpider(scrapy.Spider):
         bs_list = response.xpath("//*[@id='main']/div[1]/section[1]/ol/li/article")
         number = 1
         for entry in bs_list:
-            title = entry.xpath(".//div/h2[contains(@class,'title')]/text()").extract()
-            author = entry.xpath(".//div/p[contains(@class,'author')]/text()").extract()
-            publisher = entry.xpath(".//div/p[contains(@class,'publisher')]/text()").extract()
-            description = entry.xpath(".//div/p[contains(@class,'description')]/text()").extract()
+            title = entry.xpath(".//div/h2[contains(@class,'title')]/text()")[0].extract() or 'blank'
+            author = entry.xpath(".//div/p[contains(@class,'author')]/text()")[0].extract()
+            publisher = entry.xpath(".//div/p[contains(@class,'publisher')]/text()")[0].extract()
+            description = entry.xpath(".//div/p[contains(@class,'description')]/text()")[0].extract()
             isbn = entry.xpath(".//meta/@content").extract()
-            print ",".join([label,number,title[0],author[0],publisher[0],description[0],isbn[1],isbn[0]])
+            if len(isbn)==2:
+                isbn1 = isbn[1]
+            else:
+                isbn1 = ''
+            print ",".join([label,number,title,author,publisher,description,isbn1])
             number+=1
         
         
