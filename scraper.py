@@ -28,20 +28,40 @@ import scraperwiki
 
 class NYTBSSpider(scrapy.Spider):
     name = "nytbs"
-    def start_requests(self):
-        yield scrapy.Request('http://www.nytimes.com/books/best-sellers/')
+    
+    allowed_domains = ["nytimes.com"]
+    start_urls = [
+        "http://www.nytimes.com/books/best-sellers/"
+    ]
 
     def parse(self, response):
         headers = response.xpath("//*[@id='subnavigation']/form/div")
-        print len(headers)
         for header in headers:
             links = header.xpath(".//select/option")
             ident = header.xpath(".//@id").extract()
-            print ident
             for link in links:
                 value = link.xpath(".//@value").extract()
+                label = link.xpath(".//text()").extract()
                 if len(value)>0:
-                    print value[0]
+                    url = response.urljoin(value[0])
+                    request = scrapy.Request(url, callback=self.parse_best_seller_page)
+                    request.meta['label'] = label[0]
+                    yield request
+    
+    def parse_best_seller_page(self, response):
+        label = response.meta['label']
+        bs_list = response.xpath("//*[@id="main"]/div[1]/section[1]/ol/li/article")
+        number = 1
+        for entry in bs_list:
+            title = reponse.xpath(".//[@class='title']/text()").extract()
+            author = reponse.xpath(".//[@class='author']/text()").extract()
+            publisher = reponse.xpath(".//[@class='publisher']/text()").extract()
+            description = reponse.xpath(".//[@class='description']/text()").extract()
+            isbn = reponse.xpath(".//meta/@content").extract()
+            print "label,number,title[0],author[0],publisher[0],description[0],isbn[1],isbn[0]"
+            number++
+        
+        
         
 process = CrawlerProcess()
 process.crawl(NYTBSSpider)
