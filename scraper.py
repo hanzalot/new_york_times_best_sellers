@@ -23,7 +23,8 @@
 # called "data.sqlite" in the current working directory which has at least a table
 # called "data".
 import scrapy
-from scrapy import Request, Response
+from scrapy import Request
+from scrapy import Response
 from scrapy.crawler import CrawlerProcess
 import scraperwiki
 
