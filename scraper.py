@@ -23,8 +23,6 @@
 # called "data.sqlite" in the current working directory which has at least a table
 # called "data".
 import scrapy
-from scrapy import Request
-from scrapy import Response
 from scrapy.crawler import CrawlerProcess
 import scraperwiki
 
@@ -55,11 +53,11 @@ class NYTBSSpider(scrapy.Spider):
         bs_list = response.xpath("//*[@id='main']/div[1]/section[1]/ol/li/article")
         number = 1
         for entry in bs_list:
-            title = reponse.xpath(".//[@class='title']/text()").extract()
-            author = reponse.xpath(".//[@class='author']/text()").extract()
-            publisher = reponse.xpath(".//[@class='publisher']/text()").extract()
-            description = reponse.xpath(".//[@class='description']/text()").extract()
-            isbn = reponse.xpath(".//meta/@content").extract()
+            title = response.xpath(".//[@class='title']/text()").extract()
+            author = response.xpath(".//[@class='author']/text()").extract()
+            publisher = response.xpath(".//[@class='publisher']/text()").extract()
+            description = response.xpath(".//[@class='description']/text()").extract()
+            isbn = response.xpath(".//meta/@content").extract()
             print "label,number,title[0],author[0],publisher[0],description[0],isbn[1],isbn[0]"
             number+=1
         
