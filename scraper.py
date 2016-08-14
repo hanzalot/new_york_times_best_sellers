@@ -55,16 +55,11 @@ class NYTBSSpider(scrapy.Spider):
         number = 1
         for entry in bs_list:
             title = entry.xpath(".//div/h2[contains(@class,'title')]/text()").extract()
-            print title[0]
             author = entry.xpath(".//div/p[contains(@class,'author')]/text()").extract()
-            print author[0]
             publisher = entry.xpath(".//div/p[contains(@class,'publisher')]/text()").extract()
-            print publisher[0]
             description = entry.xpath(".//div/p[contains(@class,'description')]/text()").extract()
-            print description[0]
             isbn = entry.xpath(".//meta/@content").extract()
-            print isbn[1]
-            #print ",".join([label,number,title[0],author[0],publisher[0],description[0],isbn[1],isbn[0]])
+            print ",".join([label,number,title[0],author[0],publisher[0],description[0],isbn[1],isbn[0]])
             number+=1
         
         
