@@ -49,8 +49,7 @@ class NYTBSSpider(scrapy.Spider):
                     yield request
     
     def parse_best_seller_page(self, response):
-        label = response.meta['label']
-        print label
+        label = response.meta['label'] or 'blank'
         bs_list = response.xpath("//*[@id='main']/div[1]/section[1]/ol/li/article")
         number = 1
         for entry in bs_list:
@@ -63,7 +62,7 @@ class NYTBSSpider(scrapy.Spider):
                 isbn1 = isbn[1]
             else:
                 isbn1 = ''
-            print ",".join([label,number,title,author,publisher,description,isbn1])
+            print ",".join([label,number,title])
             number+=1
         
         
