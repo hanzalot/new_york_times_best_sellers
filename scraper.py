@@ -54,7 +54,7 @@ class NYTBSSpider(scrapy.Spider):
         bs_list = response.xpath("//*[@id='main']/div[1]/section[1]/ol/li/article")
         number = 1
         for entry in bs_list:
-            title = entry.xpath(".//div/h3[contains(@class,'title')]/text()").extract()
+            title = entry.xpath(".//div/h2[contains(@class,'title')]/text()").extract()
             print title[0]
             author = entry.xpath(".//div/p[contains(@class,'author')]/text()").extract()
             print author[0]
