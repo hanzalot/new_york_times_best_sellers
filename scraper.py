@@ -50,7 +50,7 @@ class NYTBSSpider(scrapy.Spider):
     
     def parse_best_seller_page(self, response):
         label = response.meta['label']
-        bs_list = response.xpath("//*[@id="main"]/div[1]/section[1]/ol/li/article")
+        bs_list = response.xpath("//*[@id='main']/div[1]/section[1]/ol/li/article")
         number = 1
         for entry in bs_list:
             title = reponse.xpath(".//[@class='title']/text()").extract()
@@ -59,7 +59,7 @@ class NYTBSSpider(scrapy.Spider):
             description = reponse.xpath(".//[@class='description']/text()").extract()
             isbn = reponse.xpath(".//meta/@content").extract()
             print "label,number,title[0],author[0],publisher[0],description[0],isbn[1],isbn[0]"
-            number++
+            number+=1
         
         
         
