@@ -62,7 +62,7 @@ class NYTBSSpider(scrapy.Spider):
                 isbn1 = isbn[1]
             else:
                 isbn1 = ''
-            print ",".join([label,number,title])
+            print ",".join([label,str(number),title])
             number+=1
         
         
