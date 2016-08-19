@@ -24,6 +24,7 @@
 # called "data".
 import scrapy
 from scrapy.crawler import CrawlerProcess
+from datetime import datetime
 import scraperwiki
 
 class NYTBSSpider(scrapy.Spider):
@@ -49,6 +50,7 @@ class NYTBSSpider(scrapy.Spider):
                     yield request
     
     def parse_best_seller_page(self, response):
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         label = response.meta['label'] or 'blank'
         bs_list = response.xpath("//*[@id='main']/div[1]/section[1]/ol/li/article")
         number = 1
@@ -74,7 +76,7 @@ class NYTBSSpider(scrapy.Spider):
                 isbn1 = isbn[1]
             else:
                 isbn1 = ''
-            output = ",".join([label,str(number),str(isbn1),title,author,publisher,description])
+            output = ",".join([timestamp,response.url,label,str(number),str(isbn1),title,author,publisher,description])
             print output.encode('ascii','ignore')
             number+=1
         
